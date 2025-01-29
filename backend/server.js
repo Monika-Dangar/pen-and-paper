@@ -8,7 +8,6 @@ const app = express();
 const URI = process.env.ATLAS_URI
 
 // mongoose connection
-// connectMongoDB('mongodb://127.0.0.1:27017/pen-and-paper-1')
 connectMongoDB(URI)
     .then(() => console.log("MongoDB connected!!"))
 
@@ -17,7 +16,8 @@ connectMongoDB(URI)
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:5173' }));
+// app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'https://pen-and-paper-gilt.vercel.app/' }));
 
 // Routes
 app.use("/api/writer", writerRouter)

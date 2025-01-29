@@ -6,7 +6,7 @@ import useGetContentByCategory from "../../hook/useGetContentByCategory";
 import { handleIncrementLikeOfContent, handleCommentOfContent } from '../../services/contentService';
 
 const ReaderLayout = () => {
-    const [selectedCategory, setSelectedCategory] = useState("/poem");
+    const [selectedCategory, setSelectedCategory] = useState("poem");
     const [selectedWriting, setSelectedWriting] = useState(null);
     const [liked, setLiked] = useState(false);
     const [cmt, setComment] = useState(false); // Tracks comment toggle

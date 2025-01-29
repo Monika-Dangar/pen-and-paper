@@ -99,7 +99,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="flex items-center justify-between mb-6">
-                        <button type="submit" className="w-full bg-[#6595ac] text-white py-3 rounded-md hover:bg-blue-600">
+                        <button type="submit" className="w-full bg-[#6595ac] text-white py-3 rounded-md hover:bg-[#4c849d]">
                             Sign Up
                         </button>
                     </div>

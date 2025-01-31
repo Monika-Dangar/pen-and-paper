@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import Sidebar from "../sidebar/Sidebar";
-import { Outlet } from "react-router-dom";  // Import Outlet for nested routes
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { Outlet } from "react-router-dom";
+const Sidebar = lazy(() => import("../sidebar/Sidebar"))
 
 const WritingLayout = () => {
     const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -44,12 +44,13 @@ const WritingLayout = () => {
                 </button>
             </header>
 
-            {/* Sidebar Component */}
-            <Sidebar
-                toggleSidebar={toggleSidebar}
-                handleToggleSidebar={handleToggleSidebar}
-                sidebarRef={sidebarRef}
-            />
+            <Suspense fallback={<div>Loading SideBar...</div>}>
+                <Sidebar
+                    toggleSidebar={toggleSidebar}
+                    handleToggleSidebar={handleToggleSidebar}
+                    sidebarRef={sidebarRef}
+                />
+            </Suspense>
 
             {/* Main content area for nested routes */}
             <main className="flex-1 md:ml-64 p-8 overflow-y-auto">

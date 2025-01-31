@@ -67,15 +67,11 @@ const Editor = () => {
         }
 
         if (!isValid) {
-            return; // Don't submit if there are validation errors
+            return;
         }
 
 
         let postData = {};
-        // if (!title || !category || !editorContent || editorContent.trim() === '') {
-        //     // Show error or prevent submit if any fields are empty
-        //     return;
-        // }
 
         if (writingData && !isNewWriting) {
             // Editing existing content

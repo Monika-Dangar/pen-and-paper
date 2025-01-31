@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
-import { useState } from 'react';
-import CommentSection from '../comment/CommentSection';
+import { lazy, Suspense, useState } from 'react';
+const CommentSection = lazy(() => import('../comment/CommentSection'))
 
 const WritingPreview = ({ writing, likeClick, sendComment }) => {
     const [isLiked, setIsLiked] = useState(false);
@@ -70,12 +70,14 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
 
             {/* Comment Section Drawer */}
             <div id="comment-section">
-                <CommentSection
-                    openDrawer={openDrawer}
-                    toggleDrawer={toggleDrawer}
-                    writing={writing}
-                    handleSendComment={handleSendComment}
-                />
+                <Suspense fallback={<div>Loading CommentSection...</div>}>
+                    <CommentSection
+                        openDrawer={openDrawer}
+                        toggleDrawer={toggleDrawer}
+                        writing={writing}
+                        handleSendComment={handleSendComment}
+                    />
+                </Suspense>
             </div>
         </div>
     );

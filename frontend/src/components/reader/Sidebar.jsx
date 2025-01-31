@@ -1,4 +1,88 @@
-import SidebarLink from './SidebarLink'; // Import the SidebarLink component
+// import SidebarLink from './SidebarLink'; // Import the SidebarLink component
+
+// const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, handleToggleSidebar }) => {
+//     return (
+//         <>
+//             <nav
+//                 className={`fixed top-0 left-0 h-full w-64 bg-[#6595ac] text-white p-6 transition-transform transform ${toggleSidebar ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:block`}
+//                 ref={sidebarRef}
+//                 aria-label="Main navigation"
+//             >
+//                 <button
+//                     onClick={handleToggleSidebar}
+//                     className="text-white text-xl md:hidden top-0 right-0 fixed mt-2 mr-2 z-10"
+//                     aria-label="Close Sidebar"
+//                 >
+//                     <i className='fas fa-xmark' />
+//                 </button>
+
+//                 <div className="w-full text-white p-4">
+//                     <h2 className="text-xl font-bold mb-6 text-center">Dashboard</h2>
+
+//                     {/* Home Link */}
+//                     <SidebarLink
+//                         icon="fas fa-home"
+//                         text="Home"
+//                         to="/"
+//                         ariaLabel="Go to Home page"
+//                     />
+
+//                     {/* Poem Link */}
+//                     <SidebarLink
+//                         icon="fas fa-book"
+//                         text="Poems"
+//                         to="poem"
+//                         onClick={() => setSelectedCategory('poem')}
+//                         ariaLabel="Go to Poem section"
+//                     />
+
+//                     {/* Quote Link */}
+//                     <SidebarLink
+//                         icon="fas fa-pen"
+//                         text="Quotes"
+//                         to="quote"
+//                         onClick={() => setSelectedCategory('quote')}
+//                         ariaLabel="Go to Quote section"
+//                     />
+
+//                     {/* Short Story Link */}
+//                     <SidebarLink
+//                         icon="fas fa-paperclip"
+//                         text="Essays"
+//                         to="essay"
+//                         onClick={() => setSelectedCategory('essay')}
+//                         ariaLabel="Go to Essay section"
+//                     />
+
+//                     {/* Article Link */}
+//                     <SidebarLink
+//                         icon="fas fa-lightbulb"
+//                         text="Thoughts"
+//                         to="thought"
+//                         onClick={() => setSelectedCategory('thought')}
+//                         ariaLabel="Go to Thoughts section"
+//                     />
+
+//                     {/* Blog Link */}
+//                     <SidebarLink
+//                         icon="fas fa-file-alt"
+//                         text="Short Stories"
+//                         to="shortStory"
+//                         onClick={() => setSelectedCategory('shortStory')}
+//                         ariaLabel="Go to Short Stories section"
+//                     />
+//                 </div>
+//             </nav>
+//         </>
+//     );
+// };
+
+// export default Sidebar;
+
+
+import { lazy, Suspense } from "react";
+
+const SidebarLink = lazy(() => import('./SidebarLink'))
 
 const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, handleToggleSidebar }) => {
     return (
@@ -19,58 +103,64 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, handleToggleS
                 <div className="w-full text-white p-4">
                     <h2 className="text-xl font-bold mb-6 text-center">Dashboard</h2>
 
-                    {/* Home Link */}
-                    <SidebarLink
-                        icon="fas fa-home"
-                        text="Home"
-                        to="/"
-                        ariaLabel="Go to Home page"
-                    />
+                    <Suspense fallback={<div>Loading HomeLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-home"
+                            text="Home"
+                            to="/"
+                            ariaLabel="Go to Home page"
+                        />
+                    </Suspense>
 
-                    {/* Poem Link */}
-                    <SidebarLink
-                        icon="fas fa-book"
-                        text="Poems"
-                        to="poem"
-                        onClick={() => setSelectedCategory('poem')}
-                        ariaLabel="Go to Poem section"
-                    />
+                    <Suspense fallback={<div>Loading PoemLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-book"
+                            text="Poems"
+                            to="poem"
+                            onClick={() => setSelectedCategory('poem')}
+                            ariaLabel="Go to Poem section"
+                        />
+                    </Suspense>
 
-                    {/* Quote Link */}
-                    <SidebarLink
-                        icon="fas fa-pen"
-                        text="Quotes"
-                        to="quote"
-                        onClick={() => setSelectedCategory('quote')}
-                        ariaLabel="Go to Quote section"
-                    />
+                    <Suspense fallback={<div>Loading QuoteLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-pen"
+                            text="Quotes"
+                            to="quote"
+                            onClick={() => setSelectedCategory('quote')}
+                            ariaLabel="Go to Quote section"
+                        />
+                    </Suspense>
 
-                    {/* Short Story Link */}
-                    <SidebarLink
-                        icon="fas fa-paperclip"
-                        text="Essays"
-                        to="essay"
-                        onClick={() => setSelectedCategory('essay')}
-                        ariaLabel="Go to Essay section"
-                    />
+                    <Suspense fallback={<div>Loading EssayLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-paperclip"
+                            text="Essays"
+                            to="essay"
+                            onClick={() => setSelectedCategory('essay')}
+                            ariaLabel="Go to Essay section"
+                        />
+                    </Suspense>
 
-                    {/* Article Link */}
-                    <SidebarLink
-                        icon="fas fa-lightbulb"
-                        text="Thoughts"
-                        to="thought"
-                        onClick={() => setSelectedCategory('thought')}
-                        ariaLabel="Go to Thoughts section"
-                    />
+                    <Suspense fallback={<div>Loading ThoughtLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-lightbulb"
+                            text="Thoughts"
+                            to="thought"
+                            onClick={() => setSelectedCategory('thought')}
+                            ariaLabel="Go to Thoughts section"
+                        />
+                    </Suspense>
 
-                    {/* Blog Link */}
-                    <SidebarLink
-                        icon="fas fa-file-alt"
-                        text="Short Stories"
-                        to="shortStory"
-                        onClick={() => setSelectedCategory('shortStory')}
-                        ariaLabel="Go to Short Stories section"
-                    />
+                    <Suspense fallback={<div>Loading ShortStoryLink...</div>}>
+                        <SidebarLink
+                            icon="fas fa-file-alt"
+                            text="Short Stories"
+                            to="shortStory"
+                            onClick={() => setSelectedCategory('shortStory')}
+                            ariaLabel="Go to Short Stories section"
+                        />
+                    </Suspense>
                 </div>
             </nav>
         </>

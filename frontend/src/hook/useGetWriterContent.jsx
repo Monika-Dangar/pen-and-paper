@@ -10,16 +10,21 @@ const useGetWriterContent = (isDeleted) => {
     useEffect(() => {
 
         const getContent = async () => {
-            const response = await handleGetContentType(contentType)
-            if (response) {
-                // console.log(`Got writer all files`, response.data)
-                setData(response.data.data);
-                IsLoading(false);
+            IsLoading(false)
+            try {
 
-            } else {
+                const response = await handleGetContentType(contentType)
+                if (response) {
+                    setData(response.data.data);
+                    IsLoading(false);
+                }
+            } catch (error) {
+                console.log(`Error in fetching content: ${error}`);
+            } finally {
                 IsLoading(false);
             }
         }
+
         getContent();
     }, [contentType, isDeleted]);
 

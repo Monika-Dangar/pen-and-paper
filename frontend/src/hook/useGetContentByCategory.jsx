@@ -7,23 +7,21 @@ const useGetContentByCategory = (category, liked, cmt) => {
 
     useEffect(() => {
         const fetchContent = async () => {
+            setLoading(true);
             try {
                 const response = await handleGetContentByCategory(category);
                 if (response && response.data) {
-                    // console.log('category: ' + JSON.stringify(response));
-                    // console.log('category: ' + response.data.contents);
-
                     setData(response.data.contents);
                 }
             } catch (error) {
                 console.log("Error in fetching content by category:", error);
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
         };
 
         fetchContent();
-    }, [category, liked, cmt]);  // Re-fetch when category changes
+    }, [category, liked, cmt]);
 
     return { data, loading };
 };

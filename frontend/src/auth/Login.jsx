@@ -10,6 +10,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const authStatus = localStorage.getItem("authToken");
     const navigate = useNavigate();
 
@@ -39,6 +40,9 @@ const Login = () => {
         navigate('/')
     }
 
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible((prev) => !prev)
+    }
     return (
         <>
             <main className="flex items-center justify-center min-h-screen bg-center bg-no-repeat bg-cover bg-[url('./assets/login1.png')]">
@@ -69,9 +73,13 @@ const Login = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
+                            <div className="flex justify-between">
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
+                                <button onClick={togglePasswordVisibility}><i className={` fas ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`} /></button>
+                            </div>
+
                             <input
-                                type="password"
+                                type={isPasswordVisible ? 'text' : 'password'}
                                 id="password"
                                 name="password"
                                 value={password}

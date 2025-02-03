@@ -10,6 +10,7 @@ const SignUp = () => {
         password: "",
         bio: "",
     });
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const navigate = useNavigate();
 
@@ -36,7 +37,9 @@ const SignUp = () => {
         navigate('/')
     }
 
-
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible((prev) => !prev);
+    }
     return (
         <main className="flex items-center justify-center min-h-screen bg-center bg-no-repeat bg-cover bg-[url('./assets/login1.png')]">
             <div className="fixed top-0 left-0">
@@ -68,11 +71,14 @@ const SignUp = () => {
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-                            Password<span className="text-red-500">*</span>
-                        </label>
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+                                Password<span className="text-red-500">*</span>
+                            </label>
+                            <button onClick={togglePasswordVisibility}><i className={`fas ${isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'}`} /></button>
+                        </div>
                         <input
-                            type="password"
+                            type={isPasswordVisible ? 'text' : 'password'}
                             id="password"
                             name="password"
                             value={writerData.password}

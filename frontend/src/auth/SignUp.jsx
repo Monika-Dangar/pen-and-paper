@@ -33,6 +33,7 @@ const SignUp = () => {
             navigate('/login');
         }
     };
+
     const handleBackToHome = () => {
         navigate('/')
     }
@@ -71,7 +72,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="mb-4">
-                        <div>
+                        <div className="flex justify-between">
                             <label htmlFor="password" className="block text-sm font-medium text-gray-600">
                                 Password<span className="text-red-500">*</span>
                             </label>

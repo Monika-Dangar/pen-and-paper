@@ -19,7 +19,7 @@ async function handleWriterSignup(req, res) {
         const newWriter = await writerService.createWriter(data)
 
         if (newWriter) {
-            return res.status(201).send({ message: "Writer created", writer: newWriter })
+            return res.status(201).send({ success: true, message: "Writer created", writer: newWriter })
         }
 
         return res.status(400).send({ message: `Issue in signup` })

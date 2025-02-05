@@ -23,12 +23,10 @@ const SignUp = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-        // console.log("Writer data:", writerData);
+        e.preventDefault();
 
         const response = await handleCreateWriter(writerData);
         if (response) {
-            // console.log("Writer created:", response);
             setWriterData({ username: "", password: "", bio: "" });  // Set initial values
             navigate('/login');
         }
@@ -38,7 +36,8 @@ const SignUp = () => {
         navigate('/')
     }
 
-    const togglePasswordVisibility = () => {
+    const togglePasswordVisibility = (e) => {
+        e.preventDefault()
         setIsPasswordVisible((prev) => !prev);
     }
     return (

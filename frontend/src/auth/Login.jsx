@@ -40,7 +40,8 @@ const Login = () => {
         navigate('/')
     }
 
-    const togglePasswordVisibility = () => {
+    const togglePasswordVisibility = (e) => {
+        e.preventDefault()
         setIsPasswordVisible((prev) => !prev)
     }
     return (

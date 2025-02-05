@@ -2,7 +2,8 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { handleCreateWriter } from '../services/writerService';
 import { useNavigate } from "react-router-dom";
-import { HiArrowLeft } from "react-icons/hi";  // Icons for buttons
+import { HiArrowLeft } from "react-icons/hi";
+import AuthSkeleton from '../components/loader/AuthSkeleton'
 
 const SignUp = () => {
     const [writerData, setWriterData] = useState({
@@ -11,6 +12,8 @@ const SignUp = () => {
         bio: "",
     });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -24,11 +27,22 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
-        const response = await handleCreateWriter(writerData);
-        if (response) {
-            setWriterData({ username: "", password: "", bio: "" });  // Set initial values
-            navigate('/login');
+        try {
+            const response = await handleCreateWriter(writerData);
+
+            if (response.success == true) {
+                setLoading(false);
+                setWriterData({ username: "", password: "", bio: "" });
+                navigate('/login');
+            } else {
+                setError(response.message);
+            }
+        } catch (error) {
+            setError('Something went wrong. Please try again later');
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -52,6 +66,9 @@ const SignUp = () => {
                 </button>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
+
+                {loading && (<AuthSkeleton />)}
+
                 <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Writer Sign Up</h1>
 
                 <form onSubmit={handleSubmit}>
@@ -116,6 +133,8 @@ const SignUp = () => {
                         </p>
                     </NavLink>
                 </form>
+                {error && <aside className="text-red-500 text-center mt-4">{error}</aside>}
+
             </div>
         </main>
 

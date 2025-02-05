@@ -3,7 +3,8 @@ import { loginWriter } from "../services/loginService";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
-import { HiArrowLeft } from "react-icons/hi";  // Icons for buttons
+import { HiArrowLeft } from "react-icons/hi";
+import AuthSkeleton from '../components/loader/AuthSkeleton'
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
     const authStatus = localStorage.getItem("authToken");
     const navigate = useNavigate();
 
@@ -22,6 +24,8 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
         try {
             const response = await loginWriter(username, password);
             if (response) {
@@ -33,6 +37,8 @@ const Login = () => {
             }
         } catch (error) {
             setError('Login failed. Please check your username and password.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,6 +63,9 @@ const Login = () => {
                     </button>
                 </div>
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-4">
+
+                    {loading && (<AuthSkeleton />)}
+
                     <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Writer Login</h1>
 
                     <form id="loginForm" onSubmit={handleSubmit}>

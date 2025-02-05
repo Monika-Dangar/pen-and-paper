@@ -1,6 +1,6 @@
 const writerService = require('../services/writerService')
 
-function handleWriterSignup(req, res) {
+async function handleWriterSignup(req, res) {
     try {
 
         const data = {
@@ -10,7 +10,13 @@ function handleWriterSignup(req, res) {
             profileImagePath: req.body.profileImagePath ? req.body.profileImagePath : null
         }
 
-        const newWriter = writerService.createWriter(data)
+        const usernameExists = await writerService.findUser(req.body.username)
+
+        if (usernameExists.success) {
+            return res.send({ success: false, message: 'Username already exists' })
+        }
+
+        const newWriter = await writerService.createWriter(data)
 
         if (newWriter) {
             return res.status(201).send({ message: "Writer created", writer: newWriter })

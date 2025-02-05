@@ -1,163 +1,3 @@
-// const writerRepo = require('../repository/writerRepo');
-
-// async function createWriter(data) {
-//     try {
-//         const writer = await writerRepo.create(data);
-
-//         if (!writer) {
-//             return { success: false, message: 'Writer sign up unsuccessfull' }
-//         }
-
-//         return { success: true, message: 'Writer signed up successfully', writer }
-//     } catch (error) {
-//         console.log(`Error in sign up: ${error}`);
-//     }
-// }
-
-// async function createWriting(data) {
-//     try {
-//         const writing = await writerRepo.createWriting(data);
-
-//         if (!writing) {
-//             return { success: false, message: 'writing not uploaded!' }
-//         }
-
-//         return { success: true, message: 'Writer uploaded successfully', writing }
-//     } catch (error) {
-//         console.log(`Error in sign up: ${error}`);
-//     }
-// }
-
-// async function findUser(username) {
-//     try {
-//         const writer = await writerRepo.findByUsername(username);
-//         if (!writer) {
-//             return { success: false, message: `Writer not found!` }
-//         }
-
-//         return { success: true, message: `Writer found!`, writer }
-//     } catch (error) {
-//         console.log(`Error in finding user: ${error}`);
-//     }
-// }
-
-// async function findCategoryType(category) {
-//     try {
-//         const categoryType = await writerRepo.findCategory(category)
-
-//         if (!categoryType) {
-//             return { success: false, message: `Didn't found category` }
-//         }
-
-//         return { success: true, message: `categoryType found!!`, categoryType }
-//     } catch (error) {
-//         console.log(`Error in finding category type: ${error}`);
-//     }
-// }
-
-// async function findContentType(contentType) {
-//     try {
-//         // console.log(`contentType: ${contentType}`);
-
-//         const content = await writerRepo.findContentType(contentType)
-//         // console.log(`contentType: ${content}`);
-
-//         if (!content) {
-//             return { success: false, message: `Didn't found category` }
-//         }
-
-//         return { success: true, message: `contentType found!!`, content }
-//     } catch (error) {
-//         console.log(`Error in finding content type: ${error}`);
-//     }
-// }
-
-// async function updateExistingContent(writingId, data) {
-//     try {
-
-//         const writing = await writerRepo.findWritingByIdAndUpdate(writingId, data);
-
-//         if (!writing) {
-//             return { success: false, message: `Didn't found writing by Id` }
-//         }
-
-//         return { success: true, message: `writing found!!`, writing }
-
-//     } catch (error) {
-//         console.log(`Error in updating writing: ${error}`);
-
-//     }
-// }
-
-// async function findContentByIdAndDelete(contentId) {
-//     try {
-//         const resp = await writerRepo.findWritingByIdAndDelete(contentId)
-//         if (!resp) {
-//             return { success: false, message: `Not able to delete writing` }
-//         }
-
-//         return { success: true, message: `Deleted content`, resp }
-
-//     } catch (error) {
-//         console.log(`Error in deleting writing: ${error}`);
-//     }
-// }
-
-// async function findContentByWriterIdAndContentType(writerId, contentType) {
-//     try {
-//         const writings = await writerRepo.findWritingByWriterIdAndContentType(writerId, contentType);
-//         if (!writings) {
-//             return { success: false, message: `Not able to find writings` }
-//         }
-
-//         return { success: true, message: `Content found for writer by contentType`, writings }
-
-//     } catch (error) {
-//         console.log(`Error in fetching writing for writer by contentType: ${error}`);
-//     }
-// }
-
-// async function findContentByIdAndAddLike(contentId) {
-//     try {
-//         const response = await writerRepo.findContentByIdAndIncrementLike(contentId)
-//         if (!response) {
-//             return { success: false, message: `Not able to add like` }
-//         }
-
-//         return { success: true, message: `Like added`, response }
-
-//     } catch (error) {
-//         console.log(`Error in deleting writing: ${error}`);
-//     }
-// }
-
-// async function findContentByIdAndAddComment(writingId, comment) {
-//     try {
-//         const response = await writerRepo.findContentByIdAndComment(writingId, comment)
-//         if (!response) {
-//             return { success: false, message: `Not able to add comment` }
-//         }
-
-//         return { success: true, message: `Comment added`, response }
-
-//     } catch (error) {
-//         console.log(`Error in deleting writing: ${error}`);
-//     }
-// }
-
-// module.exports = {
-//     createWriter,
-//     createWriting,
-//     findUser,
-//     findCategoryType,
-//     findContentType,
-//     updateExistingContent,
-//     findContentByIdAndDelete,
-//     findContentByWriterIdAndContentType,
-//     findContentByIdAndAddLike,
-//     findContentByIdAndAddComment
-// }
-
 const writerRepo = require('../repository/writerRepo');
 
 // Utility function to handle service responses
@@ -195,7 +35,6 @@ async function createWriting(data) {
 async function findUser(username) {
     try {
         const writer = await writerRepo.findByUsername(username);
-        // console.log(`writer in service: ${writer}`);
 
         return handleServiceResponse(writer, writer ? 'Writer found!' : 'Writer not found!', writer);
     } catch (error) {
@@ -208,9 +47,6 @@ async function findUser(username) {
 async function findCategoryType(category) {
     try {
         const categoryType = await writerRepo.findCategory(category);
-        // console.log(`categoryType: ${categoryType}`);
-        // console.log(`categoryType: ${categoryType.categoryType}`);
-
         return handleServiceResponse(categoryType, categoryType ? 'Category type found!' : "Didn't find category", categoryType);
     } catch (error) {
         console.log(`Error in finding category type: ${error}`);
@@ -231,11 +67,7 @@ async function findContentType(contentType) {
 
 async function findContentById(contentId) {
     try {
-        // console.log(`contentId: ${contentId}`);
-
         const content = await writerRepo.findContentById(contentId)
-        // console.log(`content: ${content}`);
-
         return handleServiceResponse(content, content ? 'Content found!' : "Didn't find content", content);
     } catch (error) {
         console.log(`Error in finding content: ${error}`);

@@ -3,11 +3,11 @@ import api from './api'
 export const handleCreateWriter = async (data) => {
     try {
         const response = await api.post(`/writer/signup`, data);
-        if (response) {
-            return response
+        if (response.data) {
+            return response.data;
         }
     } catch (error) {
-        console.log(`Error in creating writer ${error}`);
+        throw new Error('Error occur during sign up.')
     }
 }
 
@@ -18,7 +18,6 @@ export const handleGetWriterData = async (writerId) => {
             return response;
         }
     } catch (error) {
-        console.log(`Error in geting writer data..${error}`);
-
+        throw new Error("Error occur while getting writer data.")
     }
 }

@@ -51,7 +51,7 @@ const Sidebar = ({ toggleSidebar, handleToggleSidebar, sidebarRef }) => {
                                 }
                             >
                                 <i className="fas fa-file-lines w-5 h-5" />
-                                <span>Your Work Status</span>
+                                <span>Dashboard</span>
                             </NavLink>
                         </li>
                     </ul>

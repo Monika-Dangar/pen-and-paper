@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import AllContent from './components/writer/AllContent'
-import Editor from './components/wysiwyg/Editor';
+import Editor from './components/wysiwyg/TextEditor';
 const HomeSkeleton = lazy(() => import('./components/loader/HomeSkeleton'))
 const HomePage = lazy(() => import('./pages/HomePage'))
 const WriterPage = lazy(() => import('./pages/WriterPage'))

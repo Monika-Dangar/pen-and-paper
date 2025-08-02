@@ -10,8 +10,8 @@ const useGetWriterData = () => {
             try {
                 const response = await handleGetWriterData();
                 if (response) {
-                    // console.log(response);
-                    setData(response.data.writerData);
+                    // console.log(response.data.writerData.data);
+                    setData(response.data.writerData.data);
                     IsLoading(false);
                 }
             } catch (error) {

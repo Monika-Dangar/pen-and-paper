@@ -1,11 +1,11 @@
-import Dashboard from "../components/Dashboard";
+import WriterDashboard from "../components/dashboard/WriterDashboard";
 
-const WriterDashboard = () => {
+const WriterPage = () => {
 
     return (
-        <Dashboard />
+        <WriterDashboard />
     );
 };
 
-export default WriterDashboard;
+export default WriterPage;
 

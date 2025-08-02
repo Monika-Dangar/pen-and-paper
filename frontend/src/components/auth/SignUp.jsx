@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { handleCreateWriter } from '../services/writerService';
+import { handleCreateWriter } from '../../services/writerService';
 import { useNavigate } from "react-router-dom";
 import { HiArrowLeft } from "react-icons/hi";
-import AuthSkeleton from '../components/loader/AuthSkeleton'
+import AuthSkeleton from '../loader/AuthSkeleton'
 
 const SignUp = () => {
     const [writerData, setWriterData] = useState({

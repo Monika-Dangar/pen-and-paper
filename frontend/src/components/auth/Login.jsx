@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { loginWriter } from "../services/loginService";
+import { loginWriter } from "../../services/loginService";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../slices/authSlice";
+import { login } from "../../slices/authSlice";
 import { HiArrowLeft } from "react-icons/hi";
-import AuthSkeleton from '../components/loader/AuthSkeleton'
+import AuthSkeleton from '../loader/AuthSkeleton'
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Login = () => {
 
     useEffect(() => {
         if (authStatus) {
-            navigate('/dashboard');
+            navigate('/writer/dashboard');
         }
     }, [navigate, authStatus]);
 
@@ -31,7 +31,7 @@ const Login = () => {
             if (response) {
                 localStorage.setItem("authToken", response.data.token); // Store token in localStorage
                 dispatch(login());
-                navigate('/dashboard');
+                navigate('/writer/dashboard');
             } else {
                 setError('Login failed. Please check your credentials.');
             }

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useLogout } from '../../hook/useLogout'
 
+// eslint-disable-next-line react/prop-types
 const Sidebar = ({ toggleSidebar, handleToggleSidebar, sidebarRef }) => {
     const logoutWriter = useLogout();
 
@@ -23,7 +24,7 @@ const Sidebar = ({ toggleSidebar, handleToggleSidebar, sidebarRef }) => {
                     <ul className="text-lg font-semibold">
                         <li>
                             <NavLink
-                                to="/dashboard"
+                                to="/writer/dashboard"
                                 className={({ isActive }) =>
                                     isActive ? "flex items-center space-x-3 py-2 text-gray-300 rounded-md" : "flex items-center space-x-3 py-2 text-white hover:text-slate-300 rounded-md"
                                 }

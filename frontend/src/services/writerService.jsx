@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import api from './api'
 
 export const handleCreateWriter = async (data) => {
@@ -19,5 +20,18 @@ export const handleGetWriterData = async (writerId) => {
         }
     } catch (error) {
         throw new Error("Error occur while getting writer data.")
+    }
+}
+
+export const handleFindOtherWriter = async (writerUsername) => {
+    try {
+        console.log(`writerUsername: ${writerUsername}`);
+
+        const response = await api.get(`/writer/searchbar/${writerUsername}`, writerUsername)
+        if (response) {
+            return response;
+        }
+    } catch (error) {
+        throw new Error("Error occur while getting other data.")
     }
 }

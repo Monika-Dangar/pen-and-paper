@@ -4,19 +4,20 @@ import { store } from "./store/store";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import AllContent from './components/writer/AllContent'
 import Editor from './components/wysiwyg/Editor';
+import Account from './components/account/Account'
+import Dashboard from "./components/dashboard/Dashboard";
 const HomeSkeleton = lazy(() => import('./components/loader/HomeSkeleton'))
 const HomePage = lazy(() => import('./pages/HomePage'))
 const WriterPage = lazy(() => import('./pages/WriterPage'))
 const DashboardSkeleton = lazy(() => import('./components/loader/DashboardSkeleton'))
 const ReaderPage = lazy(() => import('./pages/ReaderPage'))
 const ReaderSkeleton = lazy(() => import('./components/loader/ReaderSkeleton'))
-const Login = lazy(() => import('./auth/Login'))
+const Login = lazy(() => import('./components/auth/Login'))
 const LoginSkeleton = lazy(() => import('./components/loader/LoginSkeleton'))
-const SignUp = lazy(() => import('./auth/SignUp'))
+const SignUp = lazy(() => import('./components/auth/SignUp'))
 const SignUpSkeleton = lazy(() => import('./components/loader/SignupSkeleton'))
 const WritingLayout = lazy(() => import('./components/writer/WritingLayout'))
 const WritingLayoutSkeleton = lazy(() => import('./components/loader/WritingLayoutSkeleton'))
-
 function App() {
 
   return (
@@ -29,7 +30,11 @@ function App() {
             <Route path="/login" element={<Suspense fallback={<LoginSkeleton />}><Login /></Suspense>} />
             <Route path="/signup" element={<Suspense fallback={<SignUpSkeleton />}><SignUp /></Suspense>} />
 
-            <Route path="/dashboard" element={<Suspense fallback={<DashboardSkeleton />}><WriterPage /></Suspense>} />
+            <Route path="/writer/" element={<WriterPage />}>
+              <Route path="dashboard" element={<Suspense fallback={<DashboardSkeleton />}><Dashboard /></Suspense>} />
+              <Route path="account" element={<Account />} />
+              <Route path="account/:username" element={<Account />} />
+            </Route>
 
             <Route path="/write/:contentType" element={<Suspense fallback={<WritingLayoutSkeleton />}><WritingLayout /></Suspense>} >
               <Route path="work-status" element={<><AllContent /></>} />

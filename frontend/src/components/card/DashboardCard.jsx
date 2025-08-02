@@ -1,4 +1,5 @@
-const Card = ({ click, icon, title, para }) => {
+/* eslint-disable react/prop-types */
+const DashboardCard = ({ click, icon, title, para }) => {
     return (
         <section className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
             <div className="flex items-center justify-between">
@@ -17,4 +18,4 @@ const Card = ({ click, icon, title, para }) => {
     )
 }
 
-export default Card;
+export default DashboardCard;

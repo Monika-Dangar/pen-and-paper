@@ -1,19 +1,17 @@
 const Writer = require('../models/writer')
+const writerService = require('../services/writerService')
 
 async function handleGetWriter(req, res) {
     try {
 
-        const { username } = req.user; // Access the decoded username from the request object
-        // console.log(`username in handleGetWriter: ${username}`);
+        const { username } = req.user;
 
-        // Fetch the writer data from the database using the username
-        const writerData = await Writer.findOne({ username: username }); // Query your DB to find the writer
+        const writerData = await writerService.findUser(username)
 
         if (!writerData) {
             return res.status(404).send({ message: 'Writer not found' });
         }
 
-        // Send the writer data back as a response
         return res.status(200).send({ message: "sending resp from writer - handleGetWriter", writerData });
     } catch (error) {
         console.error('Error fetching writer data:', error);
@@ -27,7 +25,6 @@ async function handleModifyWriter(req, res) {
     try {
         const writer = await Writer.findById(writerId);
 
-        // Check if data has changed
         let modified = false;
         const updatedFields = {};
 
@@ -52,11 +49,9 @@ async function handleModifyWriter(req, res) {
         }
 
         if (!modified) {
-            // No change to data
             return res.status(400).json({ message: 'No changes detected' });
         }
 
-        // Proceed to update only if changes were made
         const updatedWriter = await Writer.findByIdAndUpdate(writerId, updatedFields, { new: true });
 
         res.status(200).json({
@@ -68,8 +63,37 @@ async function handleModifyWriter(req, res) {
     }
 
 }
+
+async function handleFindOtherWriter(req, res) {
+
+    try {
+
+        const { username } = req.user;
+        // console.log(`username: ${username}`);
+
+        const { writerUsername } = req.params;
+        // console.log(`writerUsername: ${writerUsername}`);
+
+        const writer = await writerService.findUser(username)
+
+        const regex = new RegExp(writerUsername, 'i');
+        // console.log(`regex: ${regex}`);
+
+        const response = await writerService.findOtherWriterByUsername(regex)
+
+        if (!response) {
+            return res.status(404).send({ message: 'Writer not found' });
+        }
+
+        return res.status(200).send({ message: "Other writers data", response });
+    } catch (error) {
+        console.error('Error fetching writer data:', error);
+        return res.status(500).send({ message: 'Error fetching writer data' });
+    }
+}
+
 module.exports = {
-    // handleCreateWriter,
     handleGetWriter,
-    handleModifyWriter
+    handleModifyWriter,
+    handleFindOtherWriter
 }

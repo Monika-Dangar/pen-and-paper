@@ -24,6 +24,11 @@ async function createWriter(data) {
 async function createWriting(data) {
     try {
         const writing = await writerRepo.createWriting(data);
+
+        if (writing) {
+            const response = await writerRepo.incrementPostsOfWriter(writing);
+        }
+
         return handleServiceResponse(writing, writing ? 'Writing uploaded successfully' : 'Writing not uploaded!', writing);
     } catch (error) {
         console.log(`Error in creating writing: ${error}`);
@@ -41,6 +46,37 @@ async function findUser(username) {
         console.log(`Error in finding user: ${error}`);
         return handleServiceResponse(false, 'Error during finding user', null);
     }
+}
+
+async function findOtherWriterByUsername(writerUsername) {
+    const writersFound = await writerRepo.findByUsernameForSearch(writerUsername);
+
+    console.log(`writerFound: ${writersFound}`);
+
+    if (writersFound.length == 0) {
+        return
+    }
+
+    let writerData = {};
+
+    for (let data of writersFound) {
+        writerData[data.username] = {
+            writer: data,
+            writing: []
+        }
+    }
+
+    for (let username in writerData) {
+        const writer = writerData[username].writer;
+        const writingFound = await writerRepo.findWritingByWriterId(writer._id);
+
+        // If writings are found, push them to the respective writer's data
+        if (writingFound) {
+            writerData[username].writing.push(writingFound);
+        }
+    }
+
+    return Object.values(writerData);
 }
 
 // Find category type
@@ -135,6 +171,7 @@ module.exports = {
     createWriter,
     createWriting,
     findUser,
+    findOtherWriterByUsername,
     findCategoryType,
     findContentType,
     findContentById,

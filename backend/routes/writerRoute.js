@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { handleGetWriter, handleModifyWriter } = require('../controllers/writerController')
+const { handleGetWriter, handleModifyWriter, handleFindOtherWriter } = require('../controllers/writerController')
 const { handleUpload, handleGetAll, handleGetContentById, handleAddCommentByContentId, handleDeleteContentById } = require('../controllers/writingController')
 
 const { hashPassword } = require("../middlewares/passwordHashing")
@@ -16,5 +16,6 @@ router.route('/:writerId').get(authenticate, handleGetWriter).patch(authenticate
 router.route('/contentType/:contentType').get(authenticate, handleGetAll).post(authenticate, handleUpload)
 router.route('/contentId/:contentId').get(authenticate, handleGetContentById).delete(authenticate, handleDeleteContentById).post(handleAddCommentByContentId)
 
+router.route('/searchbar/:writerUsername').get(authenticate, handleFindOtherWriter)
 
 module.exports = router;

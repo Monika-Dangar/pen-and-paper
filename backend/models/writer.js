@@ -16,6 +16,23 @@ const writerScehma = new mongoose.Schema({
     profileImagePath: {
         type: String
     },
+    posts: {
+        type: Number,
+        default: 0,
+        required: true,
+    },
+    followersId: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'WriterSchema'
+        }
+    ],
+    followingId: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'WriterSchema'
+        }
+    ],
 
 }, { timestamps: true })
 

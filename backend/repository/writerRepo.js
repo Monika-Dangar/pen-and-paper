@@ -13,6 +13,14 @@ function createWriting(data) {
     return newWriting.save();
 }
 
+function incrementPostsOfWriter(data) {
+    return Writer.findOneAndUpdate(
+        { _id: data.writerId },
+        { $inc: { posts: 1 } },
+        { new: true }
+    )
+}
+
 function findWritingByIdAndUpdate(writingId, data) {
     return Writing.findOneAndUpdate(
         { _id: writingId }, // The query to find the writing by its ID
@@ -24,6 +32,18 @@ function findWritingByIdAndUpdate(writingId, data) {
 
 function findByUsername(username) {
     return Writer.findOne({ username: username });
+}
+
+function findByUsernameForSearch(username) {
+    return Writer.find({
+        username: { $regex: new RegExp(username, 'i') } // Case-insensitive regex search
+    });
+}
+
+function findWritingByWriterId(writerId) {
+    return Writing.find({
+        writerId: writerId
+    })
 }
 
 function findCategory(category) {
@@ -68,7 +88,10 @@ function findContentByIdAndComment(writingId, comment) {
 module.exports = {
     create,
     createWriting,
+    incrementPostsOfWriter,
     findByUsername,
+    findByUsernameForSearch,
+    findWritingByWriterId,
     findCategory,
     findContentType,
     findContentById,

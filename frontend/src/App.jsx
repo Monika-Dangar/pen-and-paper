@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import AllContent from './components/writer/AllContent'
-import Editor from './components/wysiwyg/TextEditor';
+// import Editor from './components/wysiwyg/TextEditor';
+import EditorComponent from "./components/wysiwyg/Editor";
 const HomeSkeleton = lazy(() => import('./components/loader/HomeSkeleton'))
 const HomePage = lazy(() => import('./pages/HomePage'))
 const WriterPage = lazy(() => import('./pages/WriterPage'))
@@ -18,7 +19,6 @@ const WritingLayout = lazy(() => import('./components/writer/WritingLayout'))
 const WritingLayoutSkeleton = lazy(() => import('./components/loader/WritingLayoutSkeleton'))
 
 function App() {
-
   return (
     <>
       <Provider store={store}>
@@ -33,8 +33,10 @@ function App() {
 
             <Route path="/write/:contentType" element={<Suspense fallback={<WritingLayoutSkeleton />}><WritingLayout /></Suspense>} >
               <Route path="work-status" element={<><AllContent /></>} />
-              <Route path="editor/:contentId" element={<Editor />} />
-              <Route path="editor" element={<Editor />} />
+              {/* <Route path="editor/:contentId" element={<Editor />} /> */}
+              <Route path="editor/:contentId" element={<EditorComponent />} />
+              {/* <Route path="editor" element={<Editor />} /> */}
+              <Route path="editor" element={<EditorComponent />} />
               <Route path="" element={<Navigate to="editor" />} />
             </Route>
 

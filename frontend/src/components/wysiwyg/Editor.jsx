@@ -10,7 +10,7 @@ import { categories } from "../../data/index";
 import { handleUploadContent } from "../../services/contentService";
 import { MdOutlineSaveAlt, MdEdit } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
-import { FiFileText } from "react-icons/fi";
+// import { FiFileText } from "react-icons/fi";
 import { IoAlertCircleOutline } from "react-icons/io5";
 
 
@@ -231,11 +231,17 @@ const EditorComponent = () => {
                             <button
                                 type="button"
                                 onClick={handleCreateNew}
-                                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                                disabled={!writingData?.content}
+                                className={`inline-flex items-center justify-center px-6 py-3 border rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+        ${writingData?.content
+                                        ? 'bg-white hover:bg-gray-50 text-gray-700 border-gray-300'
+                                        : 'bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed'
+                                    }`}
                             >
                                 <FaPlus className="w-4 h-4 mr-2" />
                                 Create New
                             </button>
+
                             <button
                                 type="button"
                                 onClick={handlePublish}

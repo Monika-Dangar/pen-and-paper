@@ -295,11 +295,13 @@ const Dashboard = () => {
     }
 
     const handleOnClick = (type) => {
-        console.log(`Navigate to ${type} writing`);
+        // console.log(`Navigate to ${type} writing`);
+        navigate(`/write/${type}`);
     };
 
     const handleBack = () => {
-        console.log('Navigate back to home');
+        // console.log('Navigate back to home');
+        navigate('/')
     };
 
     return (
@@ -342,7 +344,7 @@ const Dashboard = () => {
                             <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#de5044] mb-3 leading-tight">
                                 Welcome to your Dashboard, {writerData?.username}!
                             </h1>
-                            <p className="text-sm sm:text-base text-gray-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed bg-white/60 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <p className="text-sm sm:text-base text-gray-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed backdrop-blur-sm px-4 py-2 rounded-lg">
                                 {writerData?.bio}
                             </p>
                         </div>
@@ -364,7 +366,7 @@ const Dashboard = () => {
                     <section className="text-center">
                         {/* Section Header */}
                         <div className="mb-8 sm:mb-12">
-                            <p className="text-[#de5044] text-lg sm:text-xl font-semibold bg-white/70 backdrop-blur-sm inline-block px-6 py-3 rounded-xl shadow-sm">
+                            <p className="text-[#de5044] text-lg sm:text-xl font-semibold backdrop-blur-sm inline-block px-6 py-3 rounded-xl shadow-sm">
                                 What would you like to write today?
                             </p>
                         </div>

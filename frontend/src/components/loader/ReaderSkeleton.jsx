@@ -1,4 +1,4 @@
-const SidebarSkeleton = () => (
+export const SidebarSkeleton = () => (
     <div className="w-64 h-full bg-gray-300 animate-pulse">
         <div className="h-16 bg-gray-400 mb-4"></div>
         <div className="h-10 bg-gray-400 mb-2"></div>
@@ -7,7 +7,7 @@ const SidebarSkeleton = () => (
     </div>
 );
 
-const WritingPreviewSkeleton = () => (
+export const WritingPreviewSkeleton = () => (
     <div className="p-4 space-y-4 bg-white rounded-lg shadow-lg animate-pulse">
         <div className="w-full h-40 bg-gray-300 rounded-md"></div>
         <div className="h-6 w-3/4 bg-gray-300 rounded-md"></div>
@@ -15,7 +15,7 @@ const WritingPreviewSkeleton = () => (
     </div>
 );
 
-const WritingDetailSkeleton = () => (
+export const WritingDetailSkeleton = () => (
     <div className="p-6 bg-white rounded-lg shadow-lg animate-pulse">
         <div className="h-8 w-1/4 bg-gray-300 rounded-md mb-4"></div>
         <div className="h-5 w-full bg-gray-300 rounded-md mb-2"></div>
@@ -24,7 +24,7 @@ const WritingDetailSkeleton = () => (
     </div>
 );
 
-const ReaderSkeleton = () => (
+export const ReaderSkeleton = () => (
     <div className="flex h-screen">
         <div className="w-64">
             <SidebarSkeleton />
@@ -43,5 +43,3 @@ const ReaderSkeleton = () => (
         </main>
     </div>
 );
-
-export { ReaderSkeleton, WritingPreviewSkeleton, WritingDetailSkeleton, SidebarSkeleton };

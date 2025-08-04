@@ -5,8 +5,9 @@ import ReaderPage from "../../pages/ReaderPage";
 import Login from "../../auth/Login";
 import SignUp from "../../auth/SignUp";
 import WritingLayout from "../writer/WritingLayout";
-import Editor from "../wysiwyg/Editor";
+// import Editor from "../wysiwyg/Editor";
 import AllContent from "../writer/AllContent";
+import EditorComponent from '../wysiwyg/Editor';
 
 const routes = [
     {
@@ -35,7 +36,8 @@ const routes = [
             },
             {
                 path: "editor/:contentId",  // The sub-routes under writing-layout
-                element: <Editor />,
+                // element: <Editor />,
+                element: <EditorComponent />,
             },
             {
                 path: '', // Redirect to "editor" by default if no path is provided
@@ -43,7 +45,8 @@ const routes = [
             },
             {
                 path: "editor",  // Default route (when user visits /writing-layout)
-                element: <Editor />,  // Default page (you can change this as needed)
+                // element: <Editor />,  // Default page (you can change this as needed)
+                element: <EditorComponent />,  // Default page (you can change this as needed)
             },
         ],
     },

@@ -18,11 +18,11 @@ const Home = () => {
                 </p>
 
                 <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-                    <NavLink to={'/login'} className="inline-flex justify-center items-center py-2 px-2 text-base font-medium text-center text-white rounded-md bg-[#6595ac] hover:bg-[#9dc5d8] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" aria-label="Login as Writer">
+                    <NavLink to={'/login'} className="inline-flex justify-center items-center py-2 px-2 text-base font-medium text-center text-white rounded-md bg-[#6595ac] hover:bg-[#4c7c92] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" aria-label="Login as Writer">
                         I am a writer
                         <i className='fas fa-pen-clip ml-3' />
                     </NavLink>
-                    <NavLink to={'/read'} className="inline-flex justify-center items-center py-2 px-2 sm:ms-4 text-base font-medium text-center text-white rounded-md bg-[#6595ac] hover:bg-[#9dc5d8] focus:ring-4 focus:ring-gray-400" aria-label="Login as Reader">
+                    <NavLink to={'/read'} className="inline-flex justify-center items-center py-2 px-2 sm:ms-4 text-base font-medium text-center text-white rounded-md bg-[#6595ac] hover:bg-[#4c7c92] focus:ring-4 focus:ring-gray-400" aria-label="Login as Reader">
                         I am a reader
                         <i className='fas fa-book-open-reader ml-2' />
                     </NavLink>

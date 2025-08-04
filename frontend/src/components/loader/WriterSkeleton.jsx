@@ -1,33 +1,35 @@
 const WriterSkeleton = () => {
     return (
-        <tr>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-24 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-32 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-24 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-16 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-16 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-16 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-16 rounded"></div>
-            </td>
-            <td className="px-6 py-3">
-                <div className="bg-gray-300 h-4 w-24 rounded"></div>
-            </td>
-        </tr>
+        <>
+            {Array.from({ length: 3 }).map((_, index) => (
+                <tr key={index} className="animate-pulse">
+                    <td className="px-6 py-4">
+                        <div className="h-4 w-3/4 bg-gray-200 rounded" />
+                    </td>
+                    <td className="px-6 py-4">
+                        <div className="h-4 w-1/2 bg-gray-200 rounded" />
+                    </td>
+                    <td className="px-6 py-4">
+                        <div className="h-4 w-2/3 bg-gray-200 rounded mb-1" />
+                        <div className="h-3 w-1/2 bg-gray-100 rounded" />
+                    </td>
+                    <td className="px-6 py-4">
+                        <div className="flex justify-center gap-4">
+                            <div className="h-4 w-4 bg-gray-200 rounded-full" />
+                            <div className="h-4 w-4 bg-gray-200 rounded-full" />
+                        </div>
+                    </td>
+                    <td className="px-6 py-4">
+                        <div className="flex justify-center gap-3">
+                            <div className="h-6 w-6 bg-gray-200 rounded-full" />
+                            <div className="h-6 w-6 bg-gray-200 rounded-full" />
+                            <div className="h-6 w-6 bg-gray-200 rounded-full" />
+                        </div>
+                    </td>
+                </tr>
+            ))}
+        </>
     );
+};
 
-}
-
-export default WriterSkeleton
+export default WriterSkeleton;

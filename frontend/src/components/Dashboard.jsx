@@ -406,7 +406,7 @@ const Dashboard = () => {
                         </div>
 
                         {/* Additional Quick Actions */}
-                        <div className="mt-12 sm:mt-16">
+                        {/* <div className="mt-12 sm:mt-16">
                             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg border border-[#de5044]/10 max-w-2xl mx-auto">
                                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Ready to Begin?</h3>
                                 <p className="text-gray-600 mb-6 text-sm sm:text-base">
@@ -421,7 +421,7 @@ const Dashboard = () => {
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </section>
                 </div>
             </div>

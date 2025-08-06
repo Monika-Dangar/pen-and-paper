@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
 import { HiArrowLeft } from "react-icons/hi";
-import AuthSkeleton from '../components/loader/AuthSkeleton'
+import Loader from "../components/loader/Loader";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -53,6 +53,11 @@ const Login = () => {
     return (
         <>
             <main className="flex items-center justify-center min-h-screen bg-center bg-no-repeat bg-cover bg-[url('./assets/login1.png')]">
+                {loading && (
+                    <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-50">
+                        <Loader />
+                    </div>
+                )}
                 <div className="fixed top-0 left-0">
                     <button
                         onClick={handleBackToHome}
@@ -63,8 +68,6 @@ const Login = () => {
                     </button>
                 </div>
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-4">
-
-                    {loading && (<AuthSkeleton />)}
 
                     <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">Writer Login</h1>
 
@@ -118,7 +121,6 @@ const Login = () => {
                     {error && <aside className="text-red-500 text-center mt-4">{error}</aside>}
                 </div>
             </main>
-
         </>
     );
 };

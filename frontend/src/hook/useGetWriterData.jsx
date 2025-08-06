@@ -8,6 +8,7 @@ const useGetWriterData = () => {
     useEffect(() => {
         const fetchWriterData = async () => {
             try {
+                IsLoading(true)
                 const response = await handleGetWriterData();
                 if (response) {
                     // console.log(response);
@@ -16,6 +17,8 @@ const useGetWriterData = () => {
                 }
             } catch (error) {
                 console.log(`Error in getting writer data: ${error}`);
+            } finally {
+                IsLoading(false)
             }
         }
         fetchWriterData()

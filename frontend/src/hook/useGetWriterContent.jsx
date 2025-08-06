@@ -10,13 +10,12 @@ const useGetWriterContent = (isDeleted) => {
     useEffect(() => {
 
         const getContent = async () => {
-            IsLoading(false)
+            IsLoading(true)
             try {
 
                 const response = await handleGetContentType(contentType)
                 if (response) {
                     setData(response.data.data);
-                    IsLoading(false);
                 }
             } catch (error) {
                 console.log(`Error in fetching content: ${error}`);

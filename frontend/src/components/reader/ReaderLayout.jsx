@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import useGetContentByCategory from "../../hook/useGetContentByCategory";
 import { handleIncrementLikeOfContent, handleCommentOfContent } from '../../services/contentService';
-import { SidebarSkeleton, WritingPreviewSkeleton, WritingDetailSkeleton } from "../loader/ReaderSkeleton";
-const Sidebar = lazy(() => import("./Sidebar"))
+import { WritingPreviewSkeleton, WritingDetailSkeleton } from "../loader/ReaderSkeleton";
+import Loader from "../loader/Loader";
+import Sidebar from "./Sidebar";
 const WritingPreview = lazy(() => import("./WritingPreview"))
 const WritingDetail = lazy(() => import("./WritingDetail"))
 
@@ -46,34 +47,27 @@ const ReaderLayout = () => {
         };
     }, []);
 
-    const handleToggleSidebar = () => {
-        setToggleSidebar((prev) => !prev);
-    };
-
     return (
         <div className="flex h-screen">
             <button
                 className={`md:hidden top-0 left-0 fixed mt-2 ml-2 z-10 text-xl ${toggleSidebar ? 'text-white' : 'text-black'}`}
                 type="button"
-                onClick={handleToggleSidebar}
+                onClick={() => setToggleSidebar(!toggleSidebar)}
                 aria-controls="drawer-navigation"
             >
                 <i className="fas fa-bars" />
             </button>
 
-            <Suspense fallback={<SidebarSkeleton />}>
-                <Sidebar
-                    toggleSidebar={toggleSidebar}
-                    setSelectedCategory={setSelectedCategory}
-                    sidebarRef={sidebarRef}
-                    handleToggleSidebar={handleToggleSidebar}
-                />
-            </Suspense>
+            <Sidebar
+                toggleSidebar={toggleSidebar}
+                setSelectedCategory={setSelectedCategory}
+                sidebarRef={sidebarRef}
+                setToggleSidebar={setToggleSidebar}
+            />
 
             <main className="flex-1 md:ml-64 p-6 bg-gray-100">
                 <header className="text-center mb-5">
-                    <h1 className="text-3xl font-semibold text-gray-900">Welcome to the Reader&apos;s Corner!</h1>
-
+                    <h1 className="text-2xl font-semibold text-gray-900">Welcome to the Reader&apos;s Corner!</h1>
                 </header>
 
                 {writings.length === 0 && !loading && (
@@ -83,17 +77,22 @@ const ReaderLayout = () => {
                 )}
 
                 <section className="space-y-10">
-                    {loading ? (<WritingPreviewSkeleton />) :
-                        writings.map((writing) => (
-                            <Suspense key={writing._id} fallback={<WritingPreviewSkeleton />}>
-                                <WritingPreview
-                                    writing={writing}
-                                    onClick={() => setSelectedWriting(writing)}
-                                    likeClick={handleLikeClick}
-                                    sendComment={handleSendComment}
-                                />
-                            </Suspense>
-                        ))}
+                    {loading && (
+                        <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-50">
+                            <Loader />
+                        </div>
+                    )}
+
+                    {writings.map((writing) => (
+                        <Suspense key={writing._id} fallback={<WritingPreviewSkeleton />}>
+                            <WritingPreview
+                                writing={writing}
+                                onClick={() => setSelectedWriting(writing)}
+                                likeClick={handleLikeClick}
+                                sendComment={handleSendComment}
+                            />
+                        </Suspense>
+                    ))}
 
                 </section>
 

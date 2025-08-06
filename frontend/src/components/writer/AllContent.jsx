@@ -5,9 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import { handleDeleteContentById } from "../../services/contentService";
 const WriterSkeleton = lazy(() => import("../loader/WriterSkeleton"));
 const CommentCard = lazy(() => import("../comment/CommentCard"));
-const WorkStatus = lazy(() => import("./WorkStatus"));
-const WorkStatusSkeleton = lazy(() => import("../loader/WorkStatusSkeleton"));
-
+import WorkStatus from "./WorkStatus";
+import Loader from "../loader/Loader";
 import {
     // HiOutlineEye,
     HiOutlineChat,
@@ -22,7 +21,6 @@ const AllContent = () => {
     const { data, loading } = useGetWriterContent(isDeleted);
     const [openDrawer, setOpenDrawer] = useState(null);
     const { contentType } = useParams();
-
     const handleDeleteContent = async (contentId) => {
         const response = await handleDeleteContentById(contentId);
         if (response) {
@@ -50,17 +48,30 @@ const AllContent = () => {
     };
 
     useEffect(() => {
-        if (data) {
-            setWriterData(data);
+        try {
+            if (data) {
+                setWriterData(data);
+            } else {
+                setWriterData([])
+            }
+
+        } catch (error) {
+            console.log('error: ', error);
+
         }
     }, [data, contentType, isDeleted]);
 
     return (
         <main className="min-h-screen bg-gray-50 p-4 md:p-6">
+
+            {loading && (
+                <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-50">
+                    <Loader />
+                </div>
+            )}
+
             <div className="max-w-7xl mx-auto">
-                <Suspense fallback={<WorkStatusSkeleton />}>
-                    <WorkStatus data={writerData} length={writerData?.length} />
-                </Suspense>
+                <WorkStatus data={writerData} length={writerData?.length} />
                 <section className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <header className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-5 border-b border-gray-100">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

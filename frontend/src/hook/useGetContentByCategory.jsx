@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { handleGetContentByCategory } from "../services/contentService";
 
-const useGetContentByCategory = (category, liked, cmt) => {
+const useGetContentByCategory = (filter, liked, cmt) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -9,7 +9,7 @@ const useGetContentByCategory = (category, liked, cmt) => {
         const fetchContent = async () => {
             setLoading(true);
             try {
-                const response = await handleGetContentByCategory(category);
+                const response = await handleGetContentByCategory(filter);
                 if (response && response.data) {
                     setData(response.data.contents);
                 }
@@ -21,7 +21,7 @@ const useGetContentByCategory = (category, liked, cmt) => {
         };
 
         fetchContent();
-    }, [category, liked, cmt]);
+    }, [filter, liked, cmt]);
 
     return { data, loading };
 };

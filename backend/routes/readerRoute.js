@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { handleIncrementLikeOfContentById } = require('../controllers/writingController')
+const { handleToggleLikeOfContentById } = require('../controllers/writingController')
 const { handleGetContentsByContentType } = require('../controllers/readerController')
+const { authenticate } = require('../middlewares/auth')
 
-router.route('/:contentType').get(handleGetContentsByContentType)
+router.route('/').get(handleGetContentsByContentType)
 
-router.route('/:contentId').post(handleIncrementLikeOfContentById)
+router.route('/:contentId').post(authenticate, handleToggleLikeOfContentById)
 
 module.exports = router;

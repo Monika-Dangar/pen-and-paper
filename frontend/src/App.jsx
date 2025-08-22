@@ -11,13 +11,16 @@ import ReaderPage from './pages/ReaderPage';
 import Login from './auth/Login';
 import SignUp from './auth/SignUp';
 import WritingLayout from './components/writer/WritingLayout';
-
+import Discover from "./pages/Discover";
+import Header from './components/Header'
 function App() {
   return (
     <Provider store={store}>
       <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/discover" element={<Discover />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<WriterPage />} />
@@ -29,9 +32,9 @@ function App() {
             <Route path="" element={<Navigate to="editor" />} />
           </Route>
 
-          <Route path="/read" element={<ReaderPage />}>
-            <Route path=":contentType" element={<ReaderPage />} />
-          </Route>
+          {/* <Route path="/discover" element={<ReaderPage />}> */}
+          {/* <Route path=":contentType" element={<ReaderPage />} /> */}
+          {/* </Route> */}
         </Routes>
       </Router>
     </Provider>

@@ -18,19 +18,19 @@ const writingSchema = new mongoose.Schema({
         ref: 'ContentTypeSchema',
         required: true,
     },
-    writingCategoryId: {
+    writingCategoryId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CategorySchema',
         required: true,
-    },
-    likes: {
+    }],
+    likeCount: {
         type: Number,
         default: 0
     },
-    comments: [{
-        comment: String,
-        createdAt: { type: Date, default: Date.now }
-    }]
+    commentCount: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
 
 const WritingSchema = mongoose.model("writingSchema", writingSchema)

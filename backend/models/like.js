@@ -6,11 +6,15 @@ const likeSchema = new mongoose.Schema({
         ref: 'WritingSchema',
         required: true,
     },
-    likes: {
-        type: Number,
-        default: 0
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'WriterSchema',
+        required: true,
     }
 }, { timestamps: true });
+
+// One user can like a writing only once
+likeSchema.index({ writingId: 1, userId: 1 }, { unique: true });
 
 const LikeSchema = mongoose.model('LikeSchema', likeSchema)
 module.exports = LikeSchema;

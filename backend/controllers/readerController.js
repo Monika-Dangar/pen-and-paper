@@ -1,17 +1,41 @@
 const Writings = require('../models/writing')
 const Content = require('../models/contentType')
+const Tags = require('../models/category')
 
 async function handleGetContentsByContentType(req, res) {
     try {
-        const { contentType } = req.params;
 
-        // Fetch the content type ID
-        const contentId = await Content.findOne({ contentType: contentType });
-        if (!contentId) {
-            return res.status(404).send({ message: "Content type not found" });
+        // Add search filter if search term provided
+        console.log('req: ', req.query);
+
+        const trimmedSearch = req.query.search.trim();
+
+        const searchOrConditions = [];
+        if (trimmedSearch) {
+            searchOrConditions.push(
+                { title: { $regex: trimmedSearch, $options: 'i' } },
+            );
         }
 
-        const contents = await Writings.find({ contentTypeId: contentId })
+        let contentId = null;
+        if (req.query?.contentType != 'all') {
+            const contentDoc = await Content.findOne({ contentType: req.query?.contentType });
+            if (contentDoc) contentId = contentDoc._id;
+        }
+
+        let tagId = null;
+        if (req.query?.tag) {
+            const tagDoc = await Tags.findOne({ categoryType: req.query?.tag });
+            if (tagDoc) tagId = tagDoc._id;
+        }
+
+        const query = {
+            ...(contentId && { contentTypeId: contentId }),
+            ...(tagId && { writingCategoryId: tagId }),
+            ...(searchOrConditions.length > 0 && { $or: searchOrConditions }),
+        };
+
+        const contents = await Writings.find(query)
             .populate('writerId', 'username')
             .populate('writingCategoryId', 'categoryType');
 

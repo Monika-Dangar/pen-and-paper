@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const { handleGetWriter, handleModifyWriter } = require('../controllers/writerController')
-const { handleUpload, handleGetAll, handleGetContentById, handleAddCommentByContentId, handleDeleteContentById } = require('../controllers/writingController')
+const { handleUpload, handleGetAll, handleGetContentById, handleToggleLikeOfContentById, handleDeleteContentById } = require('../controllers/writingController')
 
 const { hashPassword } = require("../middlewares/passwordHashing")
 const { passwordVerification } = require('../middlewares/passwordVerification')
@@ -14,7 +14,7 @@ router.route("/login").post(passwordVerification, handleWriterLogin)
 
 router.route('/:writerId').get(authenticate, handleGetWriter).patch(authenticate, handleModifyWriter)
 router.route('/contentType/:contentType').get(authenticate, handleGetAll).post(authenticate, handleUpload)
-router.route('/contentId/:contentId').get(authenticate, handleGetContentById).delete(authenticate, handleDeleteContentById).post(handleAddCommentByContentId)
+router.route('/contentId/:contentId').get(authenticate, handleGetContentById).delete(authenticate, handleDeleteContentById).post(authenticate, handleToggleLikeOfContentById)
 
 
 module.exports = router;

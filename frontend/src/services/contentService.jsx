@@ -11,14 +11,17 @@ export const handleUploadContent = async (contentType, postData) => {
     }
 }
 
-export const handleGetContentByCategory = async (contentType) => {
+export const handleGetContentByCategory = async (filter) => {
     try {
-        const response = await api.get(`/reader/${contentType}`)
+        console.log('filter: ', filter);
+
+        const response = await api.get(`/reader`, { params: filter }) // 'filter' should be an object like { category: "poems" }
+
         if (response) {
             return response;
         }
     } catch (error) {
-        console.log(`Error in gettin content by Id ${error}`);
+        console.log(`Error in getting content by Id ${error}`);
     }
 }
 

@@ -110,24 +110,47 @@ async function findContentByWriterIdAndContentType(writerId, contentType) {
 }
 
 // Add like to content by ID
-async function findContentByIdAndAddLike(contentId) {
+// async function findContentByIdAndAddLike(contentId) {
+//     try {
+//         const response = await writerRepo.findContentByIdAndIncrementLike(contentId);
+//         return handleServiceResponse(response, response ? 'Like added' : 'Failed to add like', response);
+//     } catch (error) {
+//         console.log(`Error in adding like: ${error}`);
+//         return handleServiceResponse(false, 'Error during adding like', null);
+//     }
+// }
+
+// // Add comment to content by writing ID
+// async function findContentByIdAndAddComment(writingId, comment) {
+//     try {
+//         const response = await writerRepo.findContentByIdAndComment(writingId, comment);
+//         return handleServiceResponse(response, response ? 'Comment added' : 'Failed to add comment', response);
+//     } catch (error) {
+//         console.log(`Error in adding comment: ${error}`);
+//         return handleServiceResponse(false, 'Error during adding comment', null);
+//     }
+// }
+
+
+// Add like to content by ID
+async function findContentByIdAndToggleLike(contentId, userId) {
     try {
-        const response = await writerRepo.findContentByIdAndIncrementLike(contentId);
-        return handleServiceResponse(response, response ? 'Like added' : 'Failed to add like', response);
+        const response = await writerRepo.toggleLikeOnContent(contentId, userId);
+        return handleServiceResponse(response.success, response.message, response.data);
     } catch (error) {
-        console.log(`Error in adding like: ${error}`);
-        return handleServiceResponse(false, 'Error during adding like', null);
+        console.error("Error in adding like:", error);
+        return handleServiceResponse(false, "Error during adding like", null);
     }
 }
 
 // Add comment to content by writing ID
-async function findContentByIdAndAddComment(writingId, comment) {
+async function findContentByIdAndAddComment(contentId, userId, comment) {
     try {
-        const response = await writerRepo.findContentByIdAndComment(writingId, comment);
-        return handleServiceResponse(response, response ? 'Comment added' : 'Failed to add comment', response);
+        const response = await writerRepo.addCommentToContent(contentId, userId, comment);
+        return handleServiceResponse(response.success, response.message, response.data);
     } catch (error) {
-        console.log(`Error in adding comment: ${error}`);
-        return handleServiceResponse(false, 'Error during adding comment', null);
+        console.error("Error in adding comment:", error);
+        return handleServiceResponse(false, "Error during adding comment", null);
     }
 }
 
@@ -141,6 +164,6 @@ module.exports = {
     updateExistingContent,
     findContentByIdAndDelete,
     findContentByWriterIdAndContentType,
-    findContentByIdAndAddLike,
+    findContentByIdAndToggleLike,
     findContentByIdAndAddComment
 }

@@ -7,10 +7,9 @@ const sendResponse = (res, status, success, message, data = null) => {
 
 async function handleUpload(req, res) {
     try {
-        const { writingId, title, content, category } = req.body;
-        // console.log(`writingId:  ${writingId}`);
+        const { writingId, title, content, selectedTags } = req.body;
 
-        const categoryId = await writerService.findCategoryType(category);
+        const categoryId = await writerService.findCategoryType(selectedTags);
 
         if (!categoryId.success) {
             return sendResponse(res, 404, false, categoryId.message);
@@ -26,7 +25,6 @@ async function handleUpload(req, res) {
             if (category) updatedFields.writingCategoryId = categoryId.data._id;
 
             const updatedWriting = await writerService.updateExistingContent(writingId, updatedFields);
-            // console.log('updatedWriting: ' + updatedWriting.data);
 
             if (!updatedWriting.success) {
                 return sendResponse(res, 404, false, updatedWriting.message);
@@ -42,19 +40,21 @@ async function handleUpload(req, res) {
             return sendResponse(res, 404, false, writer.message);
         }
 
-        const { contentType } = req.body;
-        const contentId = await writerService.findContentType(contentType);
+        const { selectedType } = req.body;
+        const contentId = await writerService.findContentType(selectedType);
 
         if (!contentId.success) {
             return sendResponse(res, 404, false, 'Content ID not found');
         }
+
+        let categoryIds = categoryId.data.map((cat) => cat._id)
 
         const newWriting = {
             writerId: writer.data._id,
             title,
             content,
             contentTypeId: contentId.data._id,
-            writingCategoryId: categoryId.data._id,
+            writingCategoryId: categoryIds,
         };
 
         const createdWriting = await writerService.createWriting(newWriting);
@@ -121,35 +121,75 @@ async function handleGetContentById(req, res) {
     }
 }
 
-async function handleIncrementLikeOfContentById(req, res) {
-    try {
-        const { contentId } = req.params;
-        const content = await writerService.findContentByIdAndAddLike(contentId);
+// async function handleIncrementLikeOfContentById(req, res) {
+//     try {
+//         const { contentId } = req.params;
+//         const content = await writerService.findContentByIdAndAddLike(contentId);
 
-        if (!content.success) {
-            return sendResponse(res, 404, false, "Content not found");
+//         if (!content.success) {
+//             return sendResponse(res, 404, false, "Content not found");
+//         }
+
+//         return sendResponse(res, 200, true, `Like added!`, content.data);
+
+//     } catch (error) {
+//         console.log("Error in incrementing like of content by Id", error);
+//         return sendResponse(res, 500, false, "An error occurred while incrementing the like.");
+//     }
+// }
+
+// async function handleAddCommentByContentId(req, res) {
+//     try {
+//         const { contentId } = req.params;
+//         const { comment } = req.body;
+//         const content = await writerService.findContentByIdAndAddComment(contentId, comment);
+
+//         if (!content.success) {
+//             return sendResponse(res, 404, false, "Content not found!");
+//         }
+
+//         return sendResponse(res, 200, true, "Comment added successfully!", content.data);
+
+//     } catch (error) {
+//         console.error(`Error in adding comment to contentId: ${error}`);
+//         return sendResponse(res, 500, false, "Server error while adding comment.");
+//     }
+// }
+
+async function handleToggleLikeOfContentById(req, res) {
+    try {
+        const { username } = req.user;
+        const user = await writerService.findUser(username);
+
+        const { contentId } = req.params;
+        const result = await writerService.findContentByIdAndToggleLike(contentId, user.data._id);
+
+        if (!result.success) {
+            return sendResponse(res, 404, false, result.message || "Content not found or already liked");
         }
 
-        return sendResponse(res, 200, true, `Like added!`, content.data);
-
+        return sendResponse(res, 200, true, "Like added!", result.data);
     } catch (error) {
-        console.log("Error in incrementing like of content by Id", error);
+        console.error("Error in incrementing like of content by Id", error);
         return sendResponse(res, 500, false, "An error occurred while incrementing the like.");
     }
 }
 
 async function handleAddCommentByContentId(req, res) {
     try {
+        const { username } = req.user;
+        const user = await writerService.findUser(username);
+
         const { contentId } = req.params;
         const { comment } = req.body;
-        const content = await writerService.findContentByIdAndAddComment(contentId, comment);
 
-        if (!content.success) {
-            return sendResponse(res, 404, false, "Content not found!");
+        const result = await writerService.findContentByIdAndAddComment(contentId, user.data._id, comment);
+
+        if (!result.success) {
+            return sendResponse(res, 404, false, result.message || "Content not found!");
         }
 
-        return sendResponse(res, 200, true, "Comment added successfully!", content.data);
-
+        return sendResponse(res, 200, true, "Comment added successfully!", result.data);
     } catch (error) {
         console.error(`Error in adding comment to contentId: ${error}`);
         return sendResponse(res, 500, false, "Server error while adding comment.");
@@ -177,7 +217,7 @@ module.exports = {
     handleUpload,
     handleGetAll,
     handleGetContentById,
-    handleIncrementLikeOfContentById,
+    handleToggleLikeOfContentById,
     handleAddCommentByContentId,
     handleDeleteContentById
 };

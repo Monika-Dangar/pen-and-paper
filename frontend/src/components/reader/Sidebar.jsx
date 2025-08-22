@@ -43,7 +43,7 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, setToggleSide
                         text="Poems"
                         to="poem"
                         // onClick={() => setSelectedCategory('poem')}
-                        onClick={() => changeCategory('poem')}
+                        onClick={() => changeCategory('poems')}
                         ariaLabel="Go to Poem section"
                     />
                     {/* </Suspense> */}
@@ -54,7 +54,7 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, setToggleSide
                         text="Quotes"
                         to="quote"
                         // onClick={() => setSelectedCategory('quote')}
-                        onClick={() => changeCategory('quote')}
+                        onClick={() => changeCategory('quotes')}
 
                         ariaLabel="Go to Quote section"
                     />
@@ -66,7 +66,7 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, setToggleSide
                         text="Essays"
                         to="essay"
                         // onClick={() => setSelectedCategory('essay')}
-                        onClick={() => changeCategory('essay')}
+                        onClick={() => changeCategory('essays')}
 
                         ariaLabel="Go to Essay section"
                     />
@@ -78,7 +78,7 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, setToggleSide
                         text="Thoughts"
                         to="thought"
                         // onClick={() => setSelectedCategory('thought')}
-                        onClick={() => changeCategory('thought')}
+                        onClick={() => changeCategory('thoughts')}
 
                         ariaLabel="Go to Thoughts section"
                     />
@@ -90,7 +90,7 @@ const Sidebar = ({ toggleSidebar, setSelectedCategory, sidebarRef, setToggleSide
                         text="Short Stories"
                         to="shortStory"
                         // onClick={() => setSelectedCategory('shortStory')}
-                        onClick={() => changeCategory('shortStory')}
+                        onClick={() => changeCategory('stories')}
 
                         ariaLabel="Go to Short Stories section"
                     />

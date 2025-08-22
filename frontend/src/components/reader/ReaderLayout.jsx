@@ -8,7 +8,7 @@ const WritingPreview = lazy(() => import("./WritingPreview"))
 const WritingDetail = lazy(() => import("./WritingDetail"))
 
 const ReaderLayout = () => {
-    const [selectedCategory, setSelectedCategory] = useState("poem");
+    const [selectedCategory, setSelectedCategory] = useState("poems");
     const [selectedWriting, setSelectedWriting] = useState(null);
     const [liked, setLiked] = useState(false);
     const [cmt, setComment] = useState(false);

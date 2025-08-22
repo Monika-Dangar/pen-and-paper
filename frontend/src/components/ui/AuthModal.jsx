@@ -62,7 +62,6 @@ export const AuthModal = ({ mode, onModeChange, closeAuthModal }) => {
                     setError('Login failed. Please check your credentials.');
                 }
             }
-            console.log('response: ', response);
         } catch (error) {
             setError('Login failed. Please check your username and password.');
         } finally {

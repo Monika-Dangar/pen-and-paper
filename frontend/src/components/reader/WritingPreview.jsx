@@ -15,8 +15,6 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
     const [openDrawer, setOpenDrawer] = useState(false);  // State to control drawer visibility
     const authStatus = localStorage.getItem("authToken");
 
-    console.log('writing: ', writing);
-
     // Sanitize the HTML content before rendering
     const sanitizedContent = DOMPurify.sanitize(writing.content);
 
@@ -59,18 +57,18 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
 
                     <div className='flex gap-1'>
                         {writing?.writingCategoryId?.map((tags) => (
-                            <p key={tags._id} className="text-xs text-gray-700 font-semibold bg-blue-100 py-1 px-2 rounded-full">
+                            <p key={tags?._id} className="text-xs text-gray-700 font-semibold bg-blue-100 py-1 px-2 rounded-full">
                                 {tags?.categoryType}
                             </p>
                         ))}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 text-center">{writing.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 text-center">{writing?.title}</h3>
                     <p className="text-xs text-gray-500 mt-2">
-                        Published on: {new Date(writing.createdAt).toLocaleDateString()}
+                        Published on: {new Date(writing?.createdAt).toLocaleDateString()}
                     </p>
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
-                    By <span className="font-semibold text-gray-800">{writing.writerId?.username}</span>
+                    By <span className="font-semibold text-gray-800">{writing?.writerId?.username}</span>
                 </p>
 
                 {/* Content Preview */}
@@ -102,7 +100,7 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
                         className="flex items-center space-x-2"
                     >
                         <i className="fas fa-comment-dots text-blue-500" />
-                        <span>{writing.comments.length}</span>
+                        <span>{writing?.comments?.length}</span>
                     </button>
                 </div>
 

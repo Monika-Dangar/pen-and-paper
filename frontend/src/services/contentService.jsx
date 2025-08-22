@@ -13,8 +13,6 @@ export const handleUploadContent = async (contentType, postData) => {
 
 export const handleGetContentByCategory = async (filter) => {
     try {
-        console.log('filter: ', filter);
-
         const response = await api.get(`/reader`, { params: filter }) // 'filter' should be an object like { category: "poems" }
 
         if (response) {

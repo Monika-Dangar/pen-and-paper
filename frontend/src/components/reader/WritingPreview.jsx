@@ -47,23 +47,16 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
     return (
         <>
             <div className="bg-white p-4 rounded-lg shadow-md">
-                <div className="flex justify-between items-start ">
 
-                    <div className='flex gap-1'>
-                        {writing?.writingCategoryId?.map((tags) => (
-                            <p key={tags?._id} className="text-xs text-gray-700 font-semibold bg-blue-100 py-1 px-2 rounded-full">
-                                {tags?.categoryType}
-                            </p>
-                        ))}
-                    </div>
+                <div className="flex justify-between items-start ">
                     <h3 className="text-xl font-semibold text-gray-800 text-center">{writing.title}</h3>
-                    <p className="text-xs text-gray-500 mt-2">
-                        Published on: {new Date(writing?.createdAt).toLocaleDateString()}
-                    </p>
+                    {writing?.writingCategoryId?.map((tags) => (
+                        <p key={tags?._id} className="text-xs text-accent-foreground font-semibold bg-accent/60 py-1 px-2 rounded-full">
+                            {tags?.categoryType}
+                        </p>
+                    ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
-                    By <span className="font-semibold text-gray-800">{writing?.writerId?.username}</span>
-                </p>
+
 
                 {/* Content Preview */}
                 <div
@@ -72,32 +65,44 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
                 />
 
                 <div className="mt-2 flex flex-row justify-between items-center">
-                    {/* Like Button */}
-                    <button
-                        onClick={() => handleLike(writing._id)}
-                        className="flex items-center space-x-2 text-gray-500"
-                    >
-                        <span className='cursor-pointer'>
-                            {writing?.userLike === null ? (
-                                <FaRegHeart />
-                            ) : (
-                                <FaHeart className='text-[#b9413a]' />
-                            )}
-                        </span>
-                        <span>{writing?.likeCount}</span>
-                    </button>
 
-                    {/* Comment Button */}
-                    <button
-                        // onClick={toggleDrawer}
-                        onClick={handleCommnet}
-                        aria-expanded={openDrawer}  // Indicates whether the comment section is expanded
-                        aria-controls="comment-section"  // Reference to the comment section
-                        className="flex items-center space-x-2"
-                    >
-                        <i className="fas fa-comment-dots text-blue-500" />
-                        <span>{writing?.commentCount}</span>
-                    </button>
+                    {/* Like Button */}
+                    <div className='flex space-x-2'>
+                        <button
+                            onClick={() => handleLike(writing._id)}
+                            className="flex items-center space-x-2 text-gray-500"
+                        >
+                            <span className='cursor-pointer'>
+                                {writing?.userLike === null ? (
+                                    <FaRegHeart />
+                                ) : (
+                                    <FaHeart className='text-primary' />
+                                )}
+                            </span>
+                            <span>{writing?.likeCount}</span>
+                        </button>
+
+                        {/* Comment Button */}
+                        <button
+                            // onClick={toggleDrawer}
+                            onClick={handleCommnet}
+                            aria-expanded={openDrawer}  // Indicates whether the comment section is expanded
+                            aria-controls="comment-section"  // Reference to the comment section
+                            className="flex items-center space-x-2"
+                        >
+                            <i className="fas fa-comment-dots text-accent" />
+                            <span>{writing?.commentCount}</span>
+                        </button>
+                    </div>
+                    <div className='flex space-x-2'>
+                        <p className="text-xs text-gray-500 ">
+                            By <span className="font-semibold text-gray-800">{writing?.writerId?.username}</span>
+                        </p>
+                        <p className="text-xs text-gray-500">
+                            {new Date(writing?.createdAt).toLocaleDateString()}
+                        </p>
+                    </div>
+
                 </div>
 
                 {/* Comment Section Drawer */}

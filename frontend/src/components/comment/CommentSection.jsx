@@ -34,8 +34,8 @@ const CommentSection = ({ openDrawer, toggleDrawer, writing, handleSendComment, 
                 {/* Comments and input section */}
                 <div className="p-4 space-y-4 overflow-y-auto max-h-[400px]">
                     {/* Display existing comments */}
-                    {writing.comments && writing.comments.length > 0 ? (
-                        writing.comments.map((comment) => (
+                    {writing?.comments && writing?.comments.length > 0 ? (
+                        writing?.comments.map((comment) => (
                             <div key={comment._id} className="bg-gray-100 p-2 rounded-lg flex justify-between">
                                 <p className="text-gray-600">{comment.comment}</p>
                                 <p className="text-sm text-gray-500">{new Date(comment.createdAt).toLocaleString()}</p>
@@ -59,7 +59,7 @@ const CommentSection = ({ openDrawer, toggleDrawer, writing, handleSendComment, 
                             />
                             {/* Submit button */}
                             <button
-                                onClick={() => handleComment(writing._id)} // handle submit
+                                onClick={() => handleComment(writing?._id)} // handle submit
                                 className="p-2 bg-[#6595ac] text-white rounded-md"
                                 aria-label="Send comment"
                             >

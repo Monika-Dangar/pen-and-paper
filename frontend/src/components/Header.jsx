@@ -2,7 +2,7 @@ import { PenTool, Search, Menu, X, CircleUserRound } from "lucide-react"
 import { useState } from "react"
 import CreateModal from "./ui/CreateModal"
 import { AuthModal } from "./ui/AuthModal"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useLogout } from "../hook/useLogout";
 
 const authType = [
@@ -17,15 +17,24 @@ const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const authStatus = localStorage.getItem("authToken");
     const logoutWriter = useLogout();
+    const navigate = useNavigate()
 
     const openCreateModal = (flag) => {
-
         if (flag && authStatus) {
             setIsCreateOpen(true)
         } else {
             setIsAuthOpen(true)
         }
+    }
 
+    const handleDiscover = () => {
+        setIsMobileMenuOpen(false)
+        navigate('/discover')
+    }
+
+    const handleSignOutMobile = () => {
+        setIsMobileMenuOpen(false)
+        logoutWriter()
     }
     return (
         <>
@@ -79,7 +88,6 @@ const Header = () => {
                                 Sign out
                             </button>
                         </div>
-
                     )}
 
 
@@ -96,8 +104,8 @@ const Header = () => {
                     <div className="md:hidden fixed top-15 right-0 w-3/5 bg-card/95 bg-lack backdrop-blur-lg border-literary-sage/20">
                         <div className="container mx-auto px-4 py-4 space-y-2">
                             <button
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-full flex items-center px-4 py-3 text-md font-medium hover:bg-accent hover:text-accent-foreground rounded-md"
+                                onClick={handleDiscover}
+                                className="w-full flex items-center px-4 py-3 text-md font-medium hover:text-accent-foreground rounded-md"
                             >
                                 <Search className="h-4 w-4 mr-3" />
                                 <span>Discover</span>
@@ -108,28 +116,36 @@ const Header = () => {
                                     setIsCreateOpen(true)
                                     setIsMobileMenuOpen(false)
                                 }}
-                                className="w-full flex items-center px-4 py-3 text-md font-medium hover:bg-accent hover:text-accent-foreground rounded-md"
+                                className="w-full flex items-center px-4 py-3 text-md font-medium hover:text-accent-foreground rounded-md"
                             >
                                 <PenTool className="h-4 w-4 mr-3" />
                                 Create
                             </button>
 
-                            {/* <div className="border-literary-sage/20"> */}
-                            <button
-                                onClick={() => {
-                                    setIsAuthOpen(true)
-                                    setIsMobileMenuOpen(false)
-                                    setAuthMode(authType[0].type);
-                                    setIsAuthOpen(true);
+                            {!authStatus && (
+                                <button
+                                    onClick={() => {
+                                        setIsAuthOpen(true)
+                                        setIsMobileMenuOpen(false)
+                                        setAuthMode(authType[0].type);
+                                        setIsAuthOpen(true);
+                                    }}
+                                    className="w-full flex items-center px-4 py-3 text-md font-medium text-accent rounded-md"
+                                >
+                                    <CircleUserRound className="h-4 w-4 mr-3" />
+                                    Sign in
+                                </button>
+                            )}
 
-                                }}
-                                // className="w-full flex items-center px-4 py-3 text-sm font-medium rounded-md bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-accent-foreground mt-2"
-                                className="w-full flex items-center px-4 py-3 text-md font-medium text-accent rounded-md"
-                            >
-                                <CircleUserRound className="h-4 w-4 mr-3" />
-                                Sign in
-                            </button>
-                            {/* </div> */}
+                            {authStatus && (
+                                <button
+                                    onClick={handleSignOutMobile}
+                                    className="w-full flex items-center px-4 py-3 text-md font-medium text-accent rounded-md"
+                                >
+                                    <CircleUserRound className="h-4 w-4 mr-3" />
+                                    Sign out
+                                </button>
+                            )}
                         </div>
                     </div>
                 )}

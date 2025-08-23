@@ -11,7 +11,7 @@ const useGetContentByCategory = (filter, liked, cmt) => {
             try {
                 const response = await handleGetContentByCategory(filter);
                 if (response && response.data) {
-                    setData(response.data.contents);
+                    setData(response.data);
                 }
             } catch (error) {
                 console.log("Error in fetching content by category:", error);

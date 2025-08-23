@@ -1,15 +1,15 @@
 import DOMPurify from 'dompurify';
-import { lazy, Suspense, useState } from 'react';
-const CommentSection = lazy(() => import('../comment/CommentSection'))
+import CommentSection from '../comment/CommentSection'
 import { AuthModal } from "../ui/AuthModal"
-
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import { useState } from 'react';
 const authType = [
     { type: 'login' },
     { type: 'signup' }
 ]
 
 const WritingPreview = ({ writing, likeClick, sendComment }) => {
-    const [isLiked, setIsLiked] = useState(false);
     const [isAuthOpen, setIsAuthOpen] = useState(false)
     const [authMode, setAuthMode] = useState(authType[0].type);
     const [openDrawer, setOpenDrawer] = useState(false);  // State to control drawer visibility
@@ -22,21 +22,15 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
         sendComment(comment, writingId);
     };
 
-    // const handleLike = (writingId) => {
-    //     setIsLiked(true);
-    //     likeClick(writingId);
-    // };
-
     const toggleDrawer = () => {
         setOpenDrawer((prev) => !prev); // Toggle the drawer visibility
     };
 
-    const handleLike = () => {
+    const handleLike = (writingId) => {
         if (!authStatus) {
             setIsAuthOpen(true)
             setAuthMode(authType[0].type);
         } else {
-            setIsLiked(true);
             likeClick(writingId);
         }
     }
@@ -62,7 +56,7 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
                             </p>
                         ))}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 text-center">{writing?.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 text-center">{writing.title}</h3>
                     <p className="text-xs text-gray-500 mt-2">
                         Published on: {new Date(writing?.createdAt).toLocaleDateString()}
                     </p>
@@ -80,14 +74,16 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
                 <div className="mt-2 flex flex-row justify-between items-center">
                     {/* Like Button */}
                     <button
-                        // onClick={() => handleLike(writing._id)}
-                        onClick={handleLike}
+                        onClick={() => handleLike(writing._id)}
                         className="flex items-center space-x-2 text-gray-500"
-                        aria-label={isLiked ? 'Unlike this writing' : 'Like this writing'}
                     >
-                        <i
-                            className={`fas fa-heart cursor-pointer text-[#b9413a]`}
-                        />
+                        <span className='cursor-pointer'>
+                            {writing?.userLike === null ? (
+                                <FaRegHeart />
+                            ) : (
+                                <FaHeart className='text-[#b9413a]' />
+                            )}
+                        </span>
                         <span>{writing?.likeCount}</span>
                     </button>
 
@@ -100,20 +96,18 @@ const WritingPreview = ({ writing, likeClick, sendComment }) => {
                         className="flex items-center space-x-2"
                     >
                         <i className="fas fa-comment-dots text-blue-500" />
-                        <span>{writing?.comments?.length}</span>
+                        <span>{writing?.commentCount}</span>
                     </button>
                 </div>
 
                 {/* Comment Section Drawer */}
                 <div id="comment-section">
-                    <Suspense fallback={<div>Loading CommentSection...</div>}>
-                        <CommentSection
-                            openDrawer={openDrawer}
-                            toggleDrawer={toggleDrawer}
-                            writing={writing}
-                            handleSendComment={handleSendComment}
-                        />
-                    </Suspense>
+                    <CommentSection
+                        openDrawer={openDrawer}
+                        toggleDrawer={toggleDrawer}
+                        writing={writing}
+                        handleSendComment={handleSendComment}
+                    />
                 </div>
             </div>
 

@@ -1,8 +1,4 @@
 import booksImg from '../assets/bg6.png';
-// import booksImg from '../assets/bg2.jpg';
-// import booksImg from '../assets/home-page.png';
-// import booksImg from '../assets/bg1.png';
-// import booksImg from '../assets/login1.png';
 import { ContentCategories } from './ui/ContentCategories';
 // import { TrendingContent } from './ui/TrendingContent';
 
@@ -41,19 +37,19 @@ const Home = () => {
 
                             {/* Stats */}
                             {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-                                <div className="text-center">
-                                    <div className="text-2xl md:text-3xl font-bold text-primary mb-2">10K+</div>
-                                    <div className="text-muted-foreground">Stories Shared</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-2xl md:text-3xl font-bold text-accent mb-2">5K+</div>
-                                    <div className="text-muted-foreground">Active Writers</div>
-                                </div>
-                                <div className="text-center">
-                                    <div className="text-2xl md:text-3xl font-bold text-literary-sage mb-2">50K+</div>
-                                    <div className="text-muted-foreground">Engaged Readers</div>
-                                </div>
-                            </div> */}
+                                    <div className="text-center">
+                                        <div className="text-2xl md:text-3xl font-bold text-primary mb-2">10K+</div>
+                                        <div className="text-muted-foreground">Stories Shared</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl md:text-3xl font-bold text-accent mb-2">5K+</div>
+                                        <div className="text-muted-foreground">Active Writers</div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-2xl md:text-3xl font-bold text-literary-sage mb-2">50K+</div>
+                                        <div className="text-muted-foreground">Engaged Readers</div>
+                                    </div>
+                                </div> */}
                         </div>
                     </div>
 

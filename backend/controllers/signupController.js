@@ -3,6 +3,9 @@ const writerService = require('../services/writerService')
 async function handleWriterSignup(req, res) {
     try {
 
+        if (!req.body.username || !req.body.password) {
+            return res.status(400).send({ message: `Issue in signup` })
+        }
         const data = {
             username: req.body.username,
             password: req.body.password,
